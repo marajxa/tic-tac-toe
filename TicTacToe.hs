@@ -36,9 +36,9 @@ drawSquare (Square a p _ 1) = drawValue a p ++ ":"
 drawSquare (Square a p _ _) = drawValue a p
 
 drawBoard :: [Square] -> String
-drawBoard (x:[])                                 = drawSquare x
+drawBoard (x:[])                                   = drawSquare x
 drawBoard ((Square a p x 0):xs) | x == 1 || x == 2 = "\n---+---+---\n" ++ drawSquare (Square a p x 0) ++ drawBoard xs
-drawBoard (x:xs)                                 = drawSquare x ++ drawBoard xs
+drawBoard (x:xs)                                   = drawSquare x ++ drawBoard xs
 
 -- a little bit of set-up
 
@@ -169,9 +169,9 @@ isWon [_, _, (Square a 3 _ _), _, (Square b 5 _ _), _, (Square c 7 _ _), _, _] |
 isWon _                                                                                           = Nothing
 
 isBoardFull :: [Square] -> Bool
-isBoardFull (x:[])                     = True
+isBoardFull (x:[])                      = True
 isBoardFull ((Square Nothing _ _ _):xs) = False
-isBoardFull (x:xs)                     = isBoardFull xs
+isBoardFull (x:xs)                      = isBoardFull xs
 
 keepGoing :: Maybe Value -> Maybe String
 keepGoing Nothing   = Nothing
