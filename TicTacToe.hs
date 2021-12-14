@@ -191,20 +191,18 @@ playO board = do
   putStrLn "Time for your turn!"
   hFlush stdout
   choice <- getLine
-  let newBoard = fillSquare O (read choice) board -- invalid input
-  putStrLn (drawBoard newBoard)
-  let winner = isWon newBoard
-  let status = if isBoardFull newBoard && winner == Nothing then Just "It's a tie!" else keepGoing (winner) 
-  if status == Nothing
-    then playX newBoard
-    else putStrLn (fromJust status)
+  let newBoard = fillSquare O (read choice) board -- invalid input not handled
+  play newBoard playX
 
 playX board = do
   putStrLn "The computer is taking its turn..."
   let newBoard = fillSquare X (chooseXMove board) board
-  putStrLn (drawBoard newBoard)
-  let winner = isWon newBoard
-  let status = if isBoardFull newBoard && winner == Nothing then Just "It's a tie!" else keepGoing (winner) 
+  play newBoard playO
+
+play board nextTurn = do
+  putStrLn (drawBoard board)
+  let winner = isWon board
+  let status = if isBoardFull board && winner == Nothing then Just "It's a tie!" else keepGoing (winner) 
   if status == Nothing
-    then playO newBoard
+    then nextTurn board
     else putStrLn(fromJust status)
