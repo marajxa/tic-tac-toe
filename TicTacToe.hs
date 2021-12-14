@@ -153,11 +153,11 @@ chooseNextXMove :: [Square] -> Int
 chooseNextXMove ((Square Nothing p _ _):_) = p
 chooseNextXMove (_:xs)                     = chooseNextXMove xs
 
-fillSquare :: Value -> Int -> [Square] -> [Square] --need to handle if square is already filled
+fillSquare :: Value -> Int -> [Square] -> [Square] --need to handle if square is already filled; right now the player could cheat
 fillSquare c a ((Square _ p x y):xs) | a == p = ((Square (Just c) p x y):xs)
 fillSquare c a (x:xs)                = (x:(fillSquare c a xs))
 
-isWon :: [Square] -> Maybe Value -- inefficient and hangs: need to fix
+isWon :: [Square] -> Maybe Value
 isWon [(Square a 1 _ _), (Square b 2 _ _), (Square c 3 _ _), _, _, _, _, _, _] | a == b && b == c = a
 isWon [_, _, _, (Square a 4 _ _), (Square b 5 _ _), (Square c 6 _ _), _, _, _] | a == b && b == c = a
 isWon [_, _, _, _, _, _, (Square a 7 _ _), (Square b 8 _ _), (Square c 9 _ _)] | a == b && b == c = a
